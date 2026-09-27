@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Insight Pro | Network Information</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    text-align:center;
+    padding:50px 20px;
+}
+
+header h1{
+    font-size:3rem;
+    font-weight:700;
+}
+
+header p{
+    color:#cbd5e1;
+    margin-top:10px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    padding:30px;
+    margin-bottom:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.ip-display{
+    text-align:center;
+}
+
+.ip-display h2{
+    color:#94a3b8;
+    margin-bottom:10px;
+}
+
+.ip-display .ip{
+    font-size:2.5rem;
+    font-weight:700;
+    color:#38bdf8;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.info-box{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:15px;
+}
+
+.info-box h3{
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+.info-box p{
+    color:#e2e8f0;
+    word-break:break-word;
+}
+
+.footer{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>free burger giveaway</h1>
+    <p>you can free burgers!</p>
+</header>
+
+<div class="container">
+
+    <div class="card ip-display">
+        <h2>this is a free burger website</h2>
+        <div class="ip" id="ip">Loading...</div>
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-box">
+            <h3>Location</h3>
+            <p id="location">Loading...</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Country</h3>
+            <p id="country">Loading...</p>
+        </div>
+
+        <div class="info-box">
+            <h3>ISP</h3>
+            <p id="isp">Loading...</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Timezone</h3>
+            <p id="timezone">Loading...</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Browser</h3>
+            <p id="browser"></p>
+        </div>
+
+        <div class="info-box">
+            <h3>Operating System</h3>
+            <p id="platform"></p>
+        </div>
+
+        <div class="info-box">
+            <h3>Language</h3>
+            <p id="language"></p>
+        </div>
+
+        <div class="info-box">
+            <h3>Screen Resolution</h3>
+            <p id="resolution"></p>
+        </div>
+
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 IP Insight Pro • Professional Network Information Tool
+</div>
+
+<script>
+async function loadIPInfo() {
+    try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+
+        document.getElementById('ip').textContent = data.ip || 'Unavailable';
+        document.getElementById('location').textContent =
+            `${data.city || ''}, ${data.region || ''}`;
+        document.getElementById('country').textContent =
+            data.country_name || 'Unavailable';
+        document.getElementById('isp').textContent =
+            data.org || 'Unavailable';
+        document.getElementById('timezone').textContent =
+            data.timezone || 'Unavailable';
+
+    } catch(error) {
+        document.getElementById('ip').textContent = 'Unable to load';
+    }
+
+    document.getElementById('browser').textContent =
+        navigator.userAgent;
+
+    document.getElementById('platform').textContent =
+        navigator.platform;
+
+    document.getElementById('language').textContent =
+        navigator.language;
+
+    document.getElementById('resolution').textContent =
+        `${screen.width} × ${screen.height}`;
+}
+
+loadIPInfo();
+</script>
+
+</body>
+</html>
